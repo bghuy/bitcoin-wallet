@@ -1,0 +1,57 @@
+-- MongoDB Collections Structure for MyCoin System
+
+-- Users Collection
+-- {
+--   _id: ObjectId,
+--   email: String (unique),
+--   password: String (hashed),
+--   createdAt: Date,
+--   wallets: [String] // Array of wallet addresses
+-- }
+
+-- Wallets Collection
+-- {
+--   _id: ObjectId,
+--   address: String (unique),
+--   publicKey: String,
+--   userId: ObjectId,
+--   balance: Number,
+--   createdAt: Date,
+--   passphrase: String (optional)
+-- }
+
+-- Transactions Collection
+-- {
+--   _id: ObjectId,
+--   hash: String (unique),
+--   from: String,
+--   to: String,
+--   amount: Number,
+--   fee: Number,
+--   timestamp: Date,
+--   status: String, // 'pending', 'confirmed', 'failed'
+--   blockNumber: Number
+-- }
+
+-- Blocks Collection
+-- {
+--   _id: ObjectId,
+--   blockNumber: Number (unique),
+--   hash: String (unique),
+--   previousHash: String,
+--   transactions: [String], // Array of transaction hashes
+--   timestamp: Date,
+--   nonce: Number,
+--   difficulty: Number
+-- }
+
+-- Create indexes for better performance
+-- db.users.createIndex({ "email": 1 }, { unique: true })
+-- db.wallets.createIndex({ "address": 1 }, { unique: true })
+-- db.wallets.createIndex({ "userId": 1 })
+-- db.transactions.createIndex({ "hash": 1 }, { unique: true })
+-- db.transactions.createIndex({ "from": 1 })
+-- db.transactions.createIndex({ "to": 1 })
+-- db.transactions.createIndex({ "timestamp": -1 })
+-- db.blocks.createIndex({ "blockNumber": 1 }, { unique: true })
+-- db.blocks.createIndex({ "hash": 1 }, { unique: true })
